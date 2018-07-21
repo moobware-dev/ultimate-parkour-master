@@ -2704,6 +2704,8 @@ GameObject:
   - component: {fileID: 2076574112}
   - component: {fileID: 2076574114}
   - component: {fileID: 2076574110}
+  - component: {fileID: 2076574115}
+  - component: {fileID: 2076574113}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -2794,6 +2796,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!111 &2076574113
+Animation:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2076574107}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 0b7f571bc986c46b68f56f05041a0ae0, type: 2}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!114 &2076574114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2837,6 +2853,24 @@ MonoBehaviour:
   jumpUpVelocity: 4.5
   collisionForceApplyLocation: {fileID: 1682864575}
   collisionForceMultiplier: 0.5
+  anim: {fileID: 0}
+--- !u!95 &2076574115
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2076574107}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6312c4b2eba0b4c24af79f40108d8958, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1001 &2120804434
 Prefab:
   m_ObjectHideFlags: 0

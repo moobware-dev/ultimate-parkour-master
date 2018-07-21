@@ -22,9 +22,12 @@ public class PlayerController : MonoBehaviour
     private bool youEfdUp;
     private float expectedPlayerForwardVelocity;
 
+    public Animation anim;
+
     void Start()
     {
         playerRigidBody = GetComponent<Rigidbody>();
+        anim = GetComponentInChildren<Animation>();
     }
 
     void Update()
@@ -67,7 +70,7 @@ public class PlayerController : MonoBehaviour
                                                collisionForceApplyLocation.position, ForceMode.Impulse);
             // TODO ^ dont be tied specifically to the world z axis, works fine for now though
 
-
+            anim.Stop();
             youEfdUp = true;
         }
     }
@@ -85,6 +88,7 @@ public class PlayerController : MonoBehaviour
         transform.position = new Vector3(newHorizontalPosition, transform.position.y, transform.position.z);
 
         expectedPlayerForwardVelocity = playerVelocityOverTime.Evaluate(Time.time * scaleProgressionThroughVelocityCurveBy) * scaleVelocityCurveOutputBy;
+
         var upwardVelocity = playerRigidBody.velocity.y;
         if (jumpRequested)
         {
@@ -94,5 +98,8 @@ public class PlayerController : MonoBehaviour
         }
 
         playerRigidBody.velocity = new Vector3(playerRigidBody.velocity.x, upwardVelocity, expectedPlayerForwardVelocity);
+
+        // Walk at double speed
+        anim["Run"].speed = expectedPlayerForwardVelocity;
     }
 }
