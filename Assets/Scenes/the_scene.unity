@@ -184,7 +184,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 0
   scaleProgressionThroughVelocityCurveBy: 0.1
-  scaleVelocityCurveOutputBy: 0
+  scaleVelocityCurveOutputBy: 3
 --- !u!4 &464230136
 Transform:
   m_ObjectHideFlags: 0
