@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
 
     public float moveSensitivity = 1f;
     public float leftMostBound = -1.5f;
@@ -17,21 +18,51 @@ public class PlayerController : MonoBehaviour {
 
     Rigidbody playerRigidBody;
 
+    private bool youEfdUp;
 
-
-	void Start () {
+    void Start()
+    {
         playerRigidBody = GetComponent<Rigidbody>();
-	}
+    }
 
     void Update()
     {
+        if (youEfdUp) {
+            return;
+        }
+
         // right mouseclick
-        if (Input.GetMouseButtonDown(1)) {
+        if (Input.GetMouseButtonDown(1))
+        {
             jumpRequested = true;
         }
     }
 
-    void FixedUpdate () {
+    void OnCollisionEnter(Collision collision)
+    {
+        if (youEfdUp) {
+            return;
+        }
+
+        foreach (ContactPoint contact in collision.contacts)
+        {
+            Debug.DrawRay(contact.point, contact.normal, Color.white);
+        }
+
+        if (collision.gameObject.CompareTag("Obstacle")) {
+            Debug.Log("Player hit an obstacle!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
+
+            playerRigidBody.constraints = RigidbodyConstraints.None;
+            youEfdUp = true;
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (youEfdUp) {
+            return;
+        }
+
         var movementChangeInput = Input.GetAxis("Mouse ScrollWheel");
         var movement = movementChangeInput * moveSensitivity;
 
@@ -40,7 +71,8 @@ public class PlayerController : MonoBehaviour {
 
         var forwardVelocity = playerVelocityOverTime.Evaluate(Time.time * scaleProgressionThroughVelocityCurveBy) * scaleVelocityCurveOutputBy;
         var upwardVelocity = playerRigidBody.velocity.y;
-        if (jumpRequested) {
+        if (jumpRequested)
+        {
             // TODO grounded check
             upwardVelocity = jumpUpVelocity;
             jumpRequested = false;
