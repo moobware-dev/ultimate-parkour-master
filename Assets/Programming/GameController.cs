@@ -6,7 +6,7 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        Debug.Log("It's a live!!!!");
+        Debug.Log("It's alive!!!!");
 	}
 	
 	// Update is called once per frame
