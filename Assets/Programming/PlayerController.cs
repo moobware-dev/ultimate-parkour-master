@@ -12,13 +12,26 @@ public class PlayerController : MonoBehaviour {
     public float scaleProgressionThroughVelocityCurveBy = 0.1f;
     public float scaleVelocityCurveOutputBy = 2f;
 
+    public float jumpUpVelocity = 3f;
+    bool jumpRequested;
+
     Rigidbody playerRigidBody;
+
+
 
 	void Start () {
         playerRigidBody = GetComponent<Rigidbody>();
 	}
-	
-	void FixedUpdate () {
+
+    void Update()
+    {
+        // right mouseclick
+        if (Input.GetMouseButtonDown(1)) {
+            jumpRequested = true;
+        }
+    }
+
+    void FixedUpdate () {
         var movementChangeInput = Input.GetAxis("Mouse ScrollWheel");
         var movement = movementChangeInput * moveSensitivity;
 
@@ -26,6 +39,13 @@ public class PlayerController : MonoBehaviour {
         transform.position = new Vector3(newHorizontalPosition, transform.position.y, transform.position.z);
 
         var forwardVelocity = playerVelocityOverTime.Evaluate(Time.time * scaleProgressionThroughVelocityCurveBy) * scaleVelocityCurveOutputBy;
-        playerRigidBody.velocity = transform.forward * forwardVelocity;
+        var upwardVelocity = playerRigidBody.velocity.y;
+        if (jumpRequested) {
+            // TODO grounded check
+            upwardVelocity = jumpUpVelocity;
+            jumpRequested = false;
+        }
+
+        playerRigidBody.velocity = new Vector3(playerRigidBody.velocity.x, upwardVelocity, forwardVelocity);
     }
 }
