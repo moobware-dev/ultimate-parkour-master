@@ -54,8 +54,12 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Player hit an obstacle!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
 
             playerRigidBody.constraints = RigidbodyConstraints.None;
-            var contact = collision.contacts[0];
-            playerRigidBody.AddForceAtPosition(contact.normal * collisionForceMultiplier, contact.point, ForceMode.Impulse);
+            // idk if I like this, let's experiment a little
+            // var contact = collision.contacts[0];
+            // player hits a wall and gets thrown back at the contact point, looks weird they hit the wall flat, then fall forward not backward
+            // playerRigidBody.AddForceAtPosition((contact.normal) * collisionForceMultiplier, contact.point, ForceMode.Impulse);
+            // this doesn't do much of anything
+            // playerRigidBody.AddForceAtPosition((contact.normal * -1) * collisionForceMultiplier, contact.point, ForceMode.Impulse);
             youEfdUp = true;
         }
     }
