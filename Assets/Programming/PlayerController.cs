@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     public float jumpUpVelocity = 3f;
     bool jumpRequested;
 
-    public Rigidbody playerBodyRigidBody;
+    Rigidbody playerRigidBody;
 
     public Transform collisionForceApplyLocation;
     public float collisionForceMultiplier = 1f;
@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        playerRigidBody = GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -53,7 +54,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Obstacle")) {
             Debug.Log("Player hit an obstacle!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
 
-            playerBodyRigidBody.constraints = RigidbodyConstraints.None;
+            playerRigidBody.constraints = RigidbodyConstraints.None;
             // idk if I like this, let's experiment a little
             // var contact = collision.contacts[0];
             // player hits a wall and gets thrown back at the contact point, looks weird they hit the wall flat, then fall forward not backward
@@ -62,7 +63,7 @@ public class PlayerController : MonoBehaviour
             // playerRigidBody.AddForceAtPosition((contact.normal * -1) * collisionForceMultiplier, contact.point, ForceMode.Impulse);
 
             // this at least makes the trip over the low barriers instead of simply falling backward unintuitively
-            playerBodyRigidBody.AddForceAtPosition(playerBodyRigidBody.transform.forward * collisionForceMultiplier * expectedPlayerForwardVelocity, 
+            playerRigidBody.AddForceAtPosition(playerRigidBody.transform.forward * collisionForceMultiplier * expectedPlayerForwardVelocity, 
                                                collisionForceApplyLocation.position, ForceMode.Impulse);
             // TODO ^ dont be tied specifically to the world z axis, works fine for now though
 
@@ -84,7 +85,7 @@ public class PlayerController : MonoBehaviour
         transform.position = new Vector3(newHorizontalPosition, transform.position.y, transform.position.z);
 
         expectedPlayerForwardVelocity = playerVelocityOverTime.Evaluate(Time.time * scaleProgressionThroughVelocityCurveBy) * scaleVelocityCurveOutputBy;
-        var upwardVelocity = playerBodyRigidBody.velocity.y;
+        var upwardVelocity = playerRigidBody.velocity.y;
         if (jumpRequested)
         {
             // TODO grounded check
@@ -92,6 +93,6 @@ public class PlayerController : MonoBehaviour
             jumpRequested = false;
         }
 
-        playerBodyRigidBody.velocity = new Vector3(playerBodyRigidBody.velocity.x, upwardVelocity, expectedPlayerForwardVelocity);
+        playerRigidBody.velocity = new Vector3(playerRigidBody.velocity.x, upwardVelocity, expectedPlayerForwardVelocity);
     }
 }
