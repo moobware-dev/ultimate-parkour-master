@@ -244,6 +244,7 @@ MonoBehaviour:
   scaleProgressionThroughVelocityCurveBy: 0.1
   scaleVelocityCurveOutputBy: 5
   jumpUpVelocity: 4.5
+  collisionForceMultiplier: 3
 --- !u!4 &464230136
 Transform:
   m_ObjectHideFlags: 0

@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
 
     Rigidbody playerRigidBody;
 
+    public float collisionForceMultiplier = 1f;
     private bool youEfdUp;
 
     void Start()
@@ -53,6 +54,8 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Player hit an obstacle!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
 
             playerRigidBody.constraints = RigidbodyConstraints.None;
+            var contact = collision.contacts[0];
+            playerRigidBody.AddForceAtPosition(contact.normal * collisionForceMultiplier, contact.point, ForceMode.Impulse);
             youEfdUp = true;
         }
     }
