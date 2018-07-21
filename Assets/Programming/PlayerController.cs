@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour {
     Rigidbody playerRigidBody;
 
 	void Start () {
-		
+        playerRigidBody = GetComponent<Rigidbody>();
 	}
 	
 	void FixedUpdate () {
@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour {
         var newHorizontalPosition = Mathf.Clamp(transform.position.x + movement, leftMostBound, rightMostBound);
         transform.position = new Vector3(newHorizontalPosition, transform.position.y, transform.position.z);
 
-        Debug.Log(string.Format("Player Velocity: {0} by curve at time {1}", playerVelocityOverTime.Evaluate(Time.time * scaleProgressionThroughVelocityCurveBy) * scaleVelocityCurveOutputBy, Time.time));
+        var forwardVelocity = playerVelocityOverTime.Evaluate(Time.time * scaleProgressionThroughVelocityCurveBy) * scaleVelocityCurveOutputBy;
+        playerRigidBody.velocity = transform.forward * forwardVelocity;
     }
 }
