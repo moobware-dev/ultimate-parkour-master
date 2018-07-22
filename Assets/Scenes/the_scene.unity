@@ -2821,7 +2821,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59dfc32f19e140d4ab1fa68c06d15f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSensitivity: 0.3
+  moveSensitivity: 0.1
   leftMostBound: -1.5
   rightMostBound: 1.5
   playerVelocityOverTime:
@@ -2853,7 +2853,7 @@ MonoBehaviour:
   jumpUpVelocity: 4.5
   collisionForceApplyLocation: {fileID: 1682864575}
   collisionForceMultiplier: 0.5
-  anim: {fileID: 0}
+  animationSpeedMultiplier: 0.2
 --- !u!95 &2076574115
 Animator:
   serializedVersion: 3

@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     private bool youEfdUp;
     private float expectedPlayerForwardVelocity;
 
+    public float animationSpeedMultiplier = 1f;
     Animator animator;
     int walkAnimationHash = Animator.StringToHash("Run");
 
