@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // right mouseclick
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             jumpRequested = true;
         }
@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        var movementChangeInput = Input.GetAxis("Mouse ScrollWheel");
+        var movementChangeInput = Input.GetAxis("Horizontal");
         var movement = movementChangeInput * moveSensitivity;
 
         var newHorizontalPosition = Mathf.Clamp(transform.position.x + movement, leftMostBound, rightMostBound);
