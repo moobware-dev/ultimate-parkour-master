@@ -22,12 +22,13 @@ public class PlayerController : MonoBehaviour
     private bool youEfdUp;
     private float expectedPlayerForwardVelocity;
 
-    public Animation anim;
+    Animator animator;
+    int walkAnimationHash = Animator.StringToHash("Run");
 
     void Start()
     {
         playerRigidBody = GetComponent<Rigidbody>();
-        anim = GetComponentInChildren<Animation>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -68,9 +69,8 @@ public class PlayerController : MonoBehaviour
             // this at least makes the trip over the low barriers instead of simply falling backward unintuitively
             playerRigidBody.AddForceAtPosition(playerRigidBody.transform.forward * collisionForceMultiplier * expectedPlayerForwardVelocity, 
                                                collisionForceApplyLocation.position, ForceMode.Impulse);
-            // TODO ^ dont be tied specifically to the world z axis, works fine for now though
 
-            anim.Stop();
+            animator.enabled = false;
             youEfdUp = true;
         }
     }
@@ -99,7 +99,6 @@ public class PlayerController : MonoBehaviour
 
         playerRigidBody.velocity = new Vector3(playerRigidBody.velocity.x, upwardVelocity, expectedPlayerForwardVelocity);
 
-        // Walk at double speed
-        anim["Run"].speed = expectedPlayerForwardVelocity;
+        animator.speed = expectedPlayerForwardVelocity;
     }
 }
