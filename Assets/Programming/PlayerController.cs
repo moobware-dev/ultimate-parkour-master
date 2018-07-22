@@ -57,17 +57,9 @@ public class PlayerController : MonoBehaviour
         }
 
         if (collision.gameObject.CompareTag("Obstacle")) {
-            Debug.Log("Player hit an obstacle!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
 
             playerRigidBody.constraints = RigidbodyConstraints.None;
-            // idk if I like this, let's experiment a little
-            // var contact = collision.contacts[0];
-            // player hits a wall and gets thrown back at the contact point, looks weird they hit the wall flat, then fall forward not backward
-            // playerRigidBody.AddForceAtPosition((contact.normal) * collisionForceMultiplier, contact.point, ForceMode.Impulse);
-            // this doesn't do much of anything, I thought maybe it would amplify the collision, gonna try bouncy physics materials instead
-            // playerRigidBody.AddForceAtPosition((contact.normal * -1) * collisionForceMultiplier, contact.point, ForceMode.Impulse);
 
-            // this at least makes the trip over the low barriers instead of simply falling backward unintuitively
             playerRigidBody.AddForceAtPosition(playerRigidBody.transform.forward * collisionForceMultiplier * expectedPlayerForwardVelocity, 
                                                collisionForceApplyLocation.position, ForceMode.Impulse);
 
@@ -88,7 +80,7 @@ public class PlayerController : MonoBehaviour
         var newHorizontalPosition = Mathf.Clamp(transform.position.x + movement, leftMostBound, rightMostBound);
         transform.position = new Vector3(newHorizontalPosition, transform.position.y, transform.position.z);
 
-        expectedPlayerForwardVelocity = playerVelocityOverTime.Evaluate(Time.time * scaleProgressionThroughVelocityCurveBy) * scaleVelocityCurveOutputBy;
+        expectedPlayerForwardVelocity = playerVelocityOverTime.Evaluate(Time.timeSinceLevelLoad * scaleProgressionThroughVelocityCurveBy) * scaleVelocityCurveOutputBy;
 
         var upwardVelocity = playerRigidBody.velocity.y;
         if (jumpRequested)

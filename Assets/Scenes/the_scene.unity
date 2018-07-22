@@ -1099,7 +1099,7 @@ GameObject:
   - component: {fileID: 464230136}
   m_Layer: 0
   m_Name: TheParkourMaster
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1493,6 +1493,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80f1182e7bc3d4a0581953142105ea0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  groundHeight: 0.5
+  secondsTilRestartIfGameOver: 3
 --- !u!4 &817840946
 Transform:
   m_ObjectHideFlags: 0
@@ -3753,7 +3755,7 @@ GameObject:
   - component: {fileID: 2076574113}
   m_Layer: 0
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
